@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MapKit
 
 class Activity{
     var name: String?
@@ -38,5 +39,18 @@ class Activity{
         //self.location = GeoPoint(latitude: 0.0, longitude: 0.0)
         
     }
+    
+    init(name: String?, description: String?, location: CLLocationCoordinate2D) {
+        self.name = name
+        self.description = description
+        self.latitude = location.latitude
+        self.longitude = location.longitude
+    }
 
+    func getApplelocation() -> CLLocationCoordinate2D {
+        var coordinate = CLLocationCoordinate2D()
+        coordinate.latitude = self.latitude!
+        coordinate.longitude = self.longitude!
+        return coordinate
+    }
 }

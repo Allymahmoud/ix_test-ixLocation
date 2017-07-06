@@ -7,16 +7,21 @@
 //
 
 import UIKit
+import MapKit
 
-class AddActivityViewController: UIViewController {
+class AddActivityViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var Activity_Text_Box: UITextField!
     @IBOutlet weak var Description_Text_Box: UITextField!
     
     //we need a way to tell the table view controller that we are done adding a new acivity
-    var activityTableViewController: ActivityTableViewController?
+    //var activityTableViewController: ActivityTableViewController?
 
     var delegate: AddActivityDelegate?
+    
+    let locationManager: CLLocationManager = CLLocationManager()
+    var latestLocation: CLLocation?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +30,23 @@ class AddActivityViewController: UIViewController {
         
         let defaultName = delegate?.defaultname()
         Activity_Text_Box.text = defaultName
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        
+        //start updating location if location manager is enabled
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+        }
+        
+        
+        
+        
+        
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,17 +60,28 @@ class AddActivityViewController: UIViewController {
     }
     
     @IBAction func save(_ sender: Any) {
-        let activity = Activity(name: Activity_Text_Box.text!, description: Description_Text_Box.text!)
+        
+        var activity: Activity?
         
         
+        if let location = self.latestLocation {
+            activity = Activity(name: Activity_Text_Box.text!, description: Description_Text_Box.text!,latitude: location.coordinate.latitude , longitude: location.coordinate.longitude)
+            
+        }
+        else{
+          activity = Activity(name: Activity_Text_Box.text!, description: Description_Text_Box.text!)
+        }
         
 //        activityTableViewController?.activities.append(activity)
 //        activityTableViewController?.tableView?.reloadData()
         
-        delegate?.didAddActivity(activity: activity)
+        delegate?.didAddActivity(activity: activity!)
         self.dismiss(animated: true, completion: nil)
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.latestLocation = locations[0]
+    }
     
 
     /*
