@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ActivityTableViewController: UITableViewController, AddActivityDelegate {
     
@@ -25,9 +26,27 @@ class ActivityTableViewController: UITableViewController, AddActivityDelegate {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        activities.append(Activity(name: "iOS Dev", description: "iOS Development"))
-        activities.append(Activity(name: "SCD", description: "Shark Cage Diving" ))
-        activities.append(Activity(name: "Charles", description: "어리 석고 굉장한"))
+        Alamofire.request("https://ixlocation-8d268.firebaseio.com/activities.json").responseJSON(completionHandler: {
+        response in
+                //print(response.result.value)
+            
+            if let activityDictionary = response.result.value as? [String: AnyObject]{
+                
+                for (key, value) in activityDictionary {
+                    print ("Key: \(key)")
+                    print ("Value: \(value)")
+                    
+                    if let singleActivityDictionary = value as? [String: AnyObject]{
+                        let activity = Activity(dictionary: singleActivityDictionary)
+                        self.activities.append(activity)
+                        self.tableView.reloadData()
+                    }
+                    
+                    
+                }
+            }
+            
+        })
         
         
         self.tableView.reloadData()
@@ -54,12 +73,18 @@ class ActivityTableViewController: UITableViewController, AddActivityDelegate {
 
  
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "activityCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "activityCell", for: indexPath) as! ActivityTableViewCell
 
         // Configure the cell...
         
-        cell.textLabel?.text = activities[indexPath.row].name
-        cell.detailTextLabel?.text = activities[indexPath.row].description
+//        cell.textLabel?.text = activities[indexPath.row].name
+//        cell.detailTextLabel?.text = activities[indexPath.row].description
+        
+        cell.activityname.text = activities[indexPath.row].name
+        cell.actvitydescription.text = activities[indexPath.row].description
+        cell.activitylatitude.text  = "\(activities[indexPath.row].latitude)"
+        cell.activitylongitude.text = "\(activities[indexPath.row].longitude)"
+        
 
         return cell
     }

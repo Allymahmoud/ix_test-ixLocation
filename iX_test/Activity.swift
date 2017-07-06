@@ -46,6 +46,14 @@ class Activity{
         self.latitude = location.latitude
         self.longitude = location.longitude
     }
+    
+    init(dictionary: [String: AnyObject]) {
+        self.name = dictionary["Name"] as? String
+        self.description = dictionary["Description"] as? String
+        self.latitude = dictionary["Latitude"] as? Double
+        self.longitude = dictionary["Longitude"] as? Double
+        
+    }
 
     func getApplelocation() -> CLLocationCoordinate2D {
         var coordinate = CLLocationCoordinate2D()
