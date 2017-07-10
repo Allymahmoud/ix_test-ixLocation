@@ -8,11 +8,15 @@
 
 import UIKit
 import MapKit
+import Alamofire
 
-class AddActivityViewController: UIViewController, CLLocationManagerDelegate {
+class AddActivityViewController: UIViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
+    @IBOutlet weak var imageDisplay: UIImageView!
     @IBOutlet weak var Activity_Text_Box: UITextField!
     @IBOutlet weak var Description_Text_Box: UITextField!
+    
+    @IBOutlet weak var selectImage: UIButton!
     
     //we need a way to tell the table view controller that we are done adding a new acivity
     //var activityTableViewController: ActivityTableViewController?
@@ -48,6 +52,41 @@ class AddActivityViewController: UIViewController, CLLocationManagerDelegate {
         
         
     }
+    
+    
+    
+    
+    @IBAction func selectImage(_ sender: Any) {
+        //Image picker
+        
+        let imagePickerController: UIImagePickerController = UIImagePickerController()
+        
+        imagePickerController.delegate = self
+        
+        
+        imagePickerController.sourceType = .photoLibrary
+        self.present(imagePickerController, animated: true, completion: nil)
+        
+        
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        
+        self.imageDisplay.isHidden = false
+        self.imageDisplay.image = selectedImage
+        
+        self.selectImage.isHidden = true
+        
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -72,11 +111,54 @@ class AddActivityViewController: UIViewController, CLLocationManagerDelegate {
           activity = Activity(name: Activity_Text_Box.text!, description: Description_Text_Box.text!)
         }
         
+        
+        
+        
 //        activityTableViewController?.activities.append(activity)
 //        activityTableViewController?.tableView?.reloadData()
         
+        //Alamofire.request("https://ixlocation-8d268.firebaseio.com/activities.json", method: .post, parameters: activity?.toJSON(), enc
+        
+    
+        
+        Alamofire.request("https://ixlocation-8d268.firebaseio.com/activities.json", method: .post, parameters: activity?.toJSON(), encoding: JSONEncoding.default).responseJSON(completionHandler: {
+            response in
+            //print(response.result.value)
+            
+            switch response.result{
+            case .success:
+                self.delegate?.didAddActivity(activity: activity!)
+                self.dismiss(animated: true, completion: nil)
+                break
+            case .failure:
+                //TODO: Display an error dialog
+                break
+            }
+
+            
+        })
+        
+/*        Alamofire.request("https://ixlocation.firebaseio.com/activities.json", method: .post, parameters: activity?.toJSON(), encoding: JSONEncoding.default).responseJSON(completionHandler: {
+            response in
+            
+            switch response.result{
+            case .success:
+                self.delegate?.didAddActivity(activity: activity!)
+                self.dismiss(animated: true, completion: nil)
+                break
+            case .failure:
+                //TODO: Display an error dialog
+                break
+            }
+        })
+*/
+        
+        
+        /*
         delegate?.didAddActivity(activity: activity!)
         self.dismiss(animated: true, completion: nil)
+        */
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

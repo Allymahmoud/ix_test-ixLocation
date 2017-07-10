@@ -26,11 +26,18 @@ class ActivityTableViewController: UITableViewController, AddActivityDelegate {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         Alamofire.request("https://ixlocation-8d268.firebaseio.com/activities.json").responseJSON(completionHandler: {
-        response in
-                //print(response.result.value)
+            response in
+            //print(response.result.value)
             
             if let activityDictionary = response.result.value as? [String: AnyObject]{
+                
+                self.activities = []
                 
                 for (key, value) in activityDictionary {
                     print ("Key: \(key)")
@@ -47,11 +54,9 @@ class ActivityTableViewController: UITableViewController, AddActivityDelegate {
             }
             
         })
-        
-        
-        self.tableView.reloadData()
+        //self.tableView.reloadData()
+
     }
-    
     
 
     override func didReceiveMemoryWarning() {
@@ -82,8 +87,8 @@ class ActivityTableViewController: UITableViewController, AddActivityDelegate {
         
         cell.activityname.text = activities[indexPath.row].name
         cell.actvitydescription.text = activities[indexPath.row].description
-        cell.activitylatitude.text  = "\(activities[indexPath.row].latitude)"
-        cell.activitylongitude.text = "\(activities[indexPath.row].longitude)"
+        cell.activitylatitude.text  = "\(String(describing: activities[indexPath.row].latitude))"
+        cell.activitylongitude.text = "\(String(describing: activities[indexPath.row].longitude))"
         
 
         return cell
