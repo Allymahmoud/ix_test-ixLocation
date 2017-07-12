@@ -95,27 +95,33 @@
                                     <action selector="selectImage:" destination="Fei-Fb-SY0" eventType="touchUpInside" id="p9z-5V-9bE"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ONU-CJ-kBZ">
+                                <rect key="frame" x="84" y="447" width="207" height="2"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="qfe-Ui-BTt" firstAttribute="centerX" secondItem="wfC-P6-68z" secondAttribute="centerX" id="5dc-Dy-Yah"/>
+                            <constraint firstItem="qfe-Ui-BTt" firstAttribute="top" secondItem="nWb-Xj-VPp" secondAttribute="bottom" constant="46" id="2WE-zB-yxr"/>
                             <constraint firstItem="foM-1X-ZmK" firstAttribute="top" secondItem="oAW-5M-zRA" secondAttribute="bottom" constant="47" id="AHl-M1-FJ3"/>
                             <constraint firstItem="yRp-eE-C2l" firstAttribute="top" secondItem="vXP-07-lOM" secondAttribute="bottom" constant="8" symbolic="YES" id="FjL-mi-nrJ"/>
+                            <constraint firstItem="ONU-CJ-kBZ" firstAttribute="top" secondItem="qfe-Ui-BTt" secondAttribute="bottom" constant="8" symbolic="YES" id="Hxr-II-WYQ"/>
                             <constraint firstItem="yRp-eE-C2l" firstAttribute="leading" secondItem="nWb-Xj-VPp" secondAttribute="leading" id="Jtj-yU-i9d"/>
                             <constraint firstItem="oDv-kK-XRf" firstAttribute="centerX" secondItem="wfC-P6-68z" secondAttribute="centerX" id="RgW-4L-eg2"/>
                             <constraint firstItem="vXP-07-lOM" firstAttribute="leading" secondItem="yRp-eE-C2l" secondAttribute="leading" id="SEz-4r-hPE"/>
                             <constraint firstItem="oDv-kK-XRf" firstAttribute="top" secondItem="nWb-Xj-VPp" secondAttribute="bottom" constant="106" id="SfU-dI-rrs"/>
-                            <constraint firstItem="Wgg-Mf-iuD" firstAttribute="top" secondItem="qfe-Ui-BTt" secondAttribute="bottom" constant="179" id="UMF-e7-JuV"/>
                             <constraint firstItem="foM-1X-ZmK" firstAttribute="leading" secondItem="wfC-P6-68z" secondAttribute="leadingMargin" constant="26" id="WCr-bq-6Ep"/>
                             <constraint firstAttribute="trailingMargin" secondItem="foM-1X-ZmK" secondAttribute="trailing" constant="17" id="Wcr-CF-TSW"/>
                             <constraint firstItem="foM-1X-ZmK" firstAttribute="trailing" secondItem="vXP-07-lOM" secondAttribute="trailing" id="XgZ-WR-kJE"/>
+                            <constraint firstItem="qfe-Ui-BTt" firstAttribute="leading" secondItem="ONU-CJ-kBZ" secondAttribute="leading" id="aOi-Wu-NY7"/>
                             <constraint firstItem="yRp-eE-C2l" firstAttribute="trailing" secondItem="nWb-Xj-VPp" secondAttribute="trailing" id="doq-Mf-2OL"/>
+                            <constraint firstItem="ONU-CJ-kBZ" firstAttribute="centerX" secondItem="wfC-P6-68z" secondAttribute="centerX" id="hfH-xL-QnP"/>
                             <constraint firstItem="vXP-07-lOM" firstAttribute="trailing" secondItem="yRp-eE-C2l" secondAttribute="trailing" id="jRf-qe-RwA"/>
-                            <constraint firstItem="qfe-Ui-BTt" firstAttribute="leading" secondItem="wfC-P6-68z" secondAttribute="leadingMargin" constant="68" id="jgG-dM-Nsz"/>
                             <constraint firstItem="vXP-07-lOM" firstAttribute="top" secondItem="foM-1X-ZmK" secondAttribute="bottom" constant="6" id="l7E-fP-iGF"/>
+                            <constraint firstItem="qfe-Ui-BTt" firstAttribute="leading" secondItem="wfC-P6-68z" secondAttribute="leadingMargin" constant="68" id="mcn-3l-oS7"/>
                             <constraint firstItem="nWb-Xj-VPp" firstAttribute="top" secondItem="yRp-eE-C2l" secondAttribute="bottom" constant="16" id="ta9-GK-mGW"/>
-                            <constraint firstItem="qfe-Ui-BTt" firstAttribute="top" secondItem="nWb-Xj-VPp" secondAttribute="bottom" constant="46" id="trg-ns-pa3"/>
+                            <constraint firstItem="qfe-Ui-BTt" firstAttribute="centerY" secondItem="oDv-kK-XRf" secondAttribute="centerY" id="yCg-93-pyX"/>
                             <constraint firstItem="foM-1X-ZmK" firstAttribute="leading" secondItem="vXP-07-lOM" secondAttribute="leading" id="yF3-O6-aKk"/>
+                            <constraint firstItem="qfe-Ui-BTt" firstAttribute="trailing" secondItem="ONU-CJ-kBZ" secondAttribute="trailing" id="zfp-I4-93y"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add Activity" id="wXc-6D-BjS">
@@ -134,6 +140,7 @@
                         <outlet property="Activity_Text_Box" destination="vXP-07-lOM" id="K41-Im-Vlt"/>
                         <outlet property="Description_Text_Box" destination="nWb-Xj-VPp" id="MY3-Gx-N7c"/>
                         <outlet property="imageDisplay" destination="qfe-Ui-BTt" id="Z1w-Nw-mox"/>
+                        <outlet property="progress" destination="ONU-CJ-kBZ" id="kPb-MK-3Qp"/>
                         <outlet property="selectImage" destination="oDv-kK-XRf" id="UAt-dp-VaE"/>
                     </connections>
                 </viewController>

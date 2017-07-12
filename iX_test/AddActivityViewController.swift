@@ -16,6 +16,7 @@ class AddActivityViewController: UIViewController, CLLocationManagerDelegate, UI
     @IBOutlet weak var imageDisplay: UIImageView!
     @IBOutlet weak var Activity_Text_Box: UITextField!
     @IBOutlet weak var Description_Text_Box: UITextField!
+    @IBOutlet weak var progress: UIProgressView!
     
     @IBOutlet weak var selectImage: UIButton!
     
