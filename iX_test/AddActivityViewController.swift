@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import Alamofire
 import RealmSwift
+import FirebaseStorage
 
 class AddActivityViewController: UIViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
@@ -27,6 +28,9 @@ class AddActivityViewController: UIViewController, CLLocationManagerDelegate, UI
     
     let locationManager: CLLocationManager = CLLocationManager()
     var latestLocation: CLLocation?
+    
+    
+    var newActivity: ActivityDto?
     
     
     override func viewDidLoad() {
@@ -103,66 +107,93 @@ class AddActivityViewController: UIViewController, CLLocationManagerDelegate, UI
     @IBAction func save(_ sender: Any) {
         
         
-        let activity = Activity()
-        activity.name = Activity_Text_Box.text!
-        activity.descr = Description_Text_Box.text!
+        newActivity?.name = Activity_Text_Box.text
+        newActivity?.description = Description_Text_Box.text
         
-        // Get the default Realm
-        let realm = try! Realm()
-        // You only need to do this once (per thread)
-        
-        // Add to the Realm inside a transaction
-        try! realm.write {
-            realm.add(activity)
-        }
-        
-        print(realm.configuration.fileURL!)
-        
-        var activityDto: ActivityDto?
-        
-        
-        if let location = self.latestLocation {
-            activityDto = ActivityDto(name: Activity_Text_Box.text!, description: Description_Text_Box.text!,latitude: location.coordinate.latitude , longitude: location.coordinate.longitude)
+        if let image = newActivity?.image {
+            // Get a reference to the storage service using the default Firebase App
+            let storage = Storage.storage()
             
-        }
-        else{
-          activityDto = ActivityDto(name: Activity_Text_Box.text!, description: Description_Text_Box.text!)
-        }
-        
-        
-        
-        
-
-        
-        
-        /*
-        // post/store the activity to firbase database
-        Alamofire.request("https://ixlocation-8d268.firebaseio.com/activities.json", method: .post, parameters: activity?.toJSON(), encoding: JSONEncoding.default).responseJSON(completionHandler: {
-            response in
-            //print(response.result.value)
+            // Create a storage reference from our storage service
+            let storageRef = storage.reference()
             
-            switch response.result{
-            case .success:
-                self.delegate?.didAddActivity(activity: activity!)
-                self.dismiss(animated: true, completion: nil)
-                break
-            case .failure:
-                //TODO: Display an error dialog
-                break
+            let imagesRef = storageRef.child("images/\(String(describing: newActivity?.name!)).jpg")
+            
+            // Local file you want to upload
+            //let localFile = image. //URL(string: "path/to/image")!
+            
+            // Create the file metadata
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpeg"
+            
+            // Upload file and metadata to the object 'images/mountains.jpg'
+            //let uploadTask = storageRef.putFile(from: localFile, metadata: metadata)
+            let jpg = UIImageJPEGRepresentation(image, CGFloat(1))
+            let uploadTask = imagesRef.putData(jpg!)
+            
+            // Listen for state changes, errors, and completion of the upload.
+            uploadTask.observe(.resume) { snapshot in
+                // Upload resumed, also fires when the upload starts
             }
-
             
-        })
-         */
-        
-
-        
-        /*
-        delegate?.didAddActivity(activity: activity!)
-        
-        */
-        self.dismiss(animated: true, completion: nil)
-        
+            uploadTask.observe(.pause) { snapshot in
+                // Upload paused
+            }
+            
+            uploadTask.observe(.progress) { snapshot in
+                // Upload reported progress
+                let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)
+                    / Double(snapshot.progress!.totalUnitCount)
+                self.progress.progress = Float(percentComplete)
+            }
+            
+            uploadTask.observe(.success) { snapshot in
+                // Upload completed successfully
+                self.newActivity?.imageUrl = snapshot.metadata?.downloadURL()?.absoluteString
+                self.postActivity()
+            }
+            
+            uploadTask.observe(.failure) { snapshot in
+                if let error = snapshot.error as NSError? {
+                    switch (StorageErrorCode(rawValue: error.code)!) {
+                    case .objectNotFound:
+                        // File doesn't exist
+                        break
+                    case .unauthorized:
+                        // User doesn't have permission to access file
+                        break
+                    case .cancelled:
+                        // User canceled the upload
+                        break
+                        
+                        /* ... */
+                        
+                    case .unknown:
+                        // Unknown error occurred, inspect the server response
+                        break
+                    default:
+                        // A separate error occurred. This is a good place to retry the upload.
+                        break
+                    }
+                }
+            }
+        } else {
+            postActivity()
+        }
+    }
+    
+    func postActivity() {
+        Alamofire.request("https://ixlocation-8d268.firebaseio.com/activities.json", method: .post, parameters: newActivity?.toJSON(), encoding: JSONEncoding.default).responseJSON { response in
+            
+            switch response.result {
+            case .success( _):
+                
+                self.delegate?.didAddActivity(activity: self.newActivity!)
+                self.dismiss(animated: true, completion: nil)
+            case .failure: break
+                // Failure... handle error
+            }
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
