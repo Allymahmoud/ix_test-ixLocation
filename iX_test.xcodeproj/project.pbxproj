@@ -14,11 +14,14 @@
 		A083CF4A1F0BD103007AEFBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A083CF491F0BD103007AEFBC /* Assets.xcassets */; };
 		A083CF4D1F0BD103007AEFBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A083CF4B1F0BD103007AEFBC /* LaunchScreen.storyboard */; };
 		A083CF551F0BD580007AEFBC /* ActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083CF541F0BD580007AEFBC /* ActivityTableViewController.swift */; };
-		A083CF571F0BD65F007AEFBC /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083CF561F0BD65F007AEFBC /* Activity.swift */; };
+		A083CF571F0BD65F007AEFBC /* ActivityDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083CF561F0BD65F007AEFBC /* ActivityDto.swift */; };
 		A083CF591F0BE075007AEFBC /* AddActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083CF581F0BE075007AEFBC /* AddActivityViewController.swift */; };
 		A083CF831F0D15CB007AEFBC /* AddActivityDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083CF821F0D15CA007AEFBC /* AddActivityDelegate.swift */; };
 		A083CF8B1F0E817C007AEFBC /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083CF8A1F0E817C007AEFBC /* ActivityTableViewCell.swift */; };
 		A083CF8D1F0FCA58007AEFBC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083CF8C1F0FCA58007AEFBC /* Location.swift */; };
+		A083CF8F1F13C078007AEFBC /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083CF8E1F13C078007AEFBC /* Activity.swift */; };
+		A083CFB31F1504AE007AEFBC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A083CFB21F1504AE007AEFBC /* GoogleService-Info.plist */; };
+		A083CFBB1F153E63007AEFBC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083CFBA1F153E63007AEFBC /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,11 +34,14 @@
 		A083CF4C1F0BD103007AEFBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A083CF4E1F0BD103007AEFBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A083CF541F0BD580007AEFBC /* ActivityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTableViewController.swift; sourceTree = "<group>"; };
-		A083CF561F0BD65F007AEFBC /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		A083CF561F0BD65F007AEFBC /* ActivityDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDto.swift; sourceTree = "<group>"; };
 		A083CF581F0BE075007AEFBC /* AddActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActivityViewController.swift; sourceTree = "<group>"; };
 		A083CF821F0D15CA007AEFBC /* AddActivityDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActivityDelegate.swift; sourceTree = "<group>"; };
 		A083CF8A1F0E817C007AEFBC /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
 		A083CF8C1F0FCA58007AEFBC /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		A083CF8E1F13C078007AEFBC /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		A083CFB21F1504AE007AEFBC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A083CFBA1F153E63007AEFBC /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A349BA363CB08B8B428A428F /* Pods-iX_test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iX_test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iX_test/Pods-iX_test.debug.xcconfig"; sourceTree = "<group>"; };
 		AFB5CEF6910F51835F12E099 /* Pods_iX_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iX_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -83,16 +89,19 @@
 			children = (
 				A083CF421F0BD103007AEFBC /* AppDelegate.swift */,
 				A083CF441F0BD103007AEFBC /* MapViewController.swift */,
+				A083CF8E1F13C078007AEFBC /* Activity.swift */,
 				A083CF461F0BD103007AEFBC /* Main.storyboard */,
 				A083CF8A1F0E817C007AEFBC /* ActivityTableViewCell.swift */,
 				A083CF581F0BE075007AEFBC /* AddActivityViewController.swift */,
-				A083CF561F0BD65F007AEFBC /* Activity.swift */,
+				A083CF561F0BD65F007AEFBC /* ActivityDto.swift */,
+				A083CFBA1F153E63007AEFBC /* LoginViewController.swift */,
 				A083CF491F0BD103007AEFBC /* Assets.xcassets */,
 				A083CF541F0BD580007AEFBC /* ActivityTableViewController.swift */,
 				A083CF821F0D15CA007AEFBC /* AddActivityDelegate.swift */,
 				A083CF4B1F0BD103007AEFBC /* LaunchScreen.storyboard */,
 				A083CF4E1F0BD103007AEFBC /* Info.plist */,
 				A083CF8C1F0FCA58007AEFBC /* Location.swift */,
+				A083CFB21F1504AE007AEFBC /* GoogleService-Info.plist */,
 			);
 			path = iX_test;
 			sourceTree = "<group>";
@@ -170,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A083CF4D1F0BD103007AEFBC /* LaunchScreen.storyboard in Resources */,
+				A083CFB31F1504AE007AEFBC /* GoogleService-Info.plist in Resources */,
 				A083CF4A1F0BD103007AEFBC /* Assets.xcassets in Resources */,
 				A083CF481F0BD103007AEFBC /* Main.storyboard in Resources */,
 			);
@@ -234,9 +244,11 @@
 				A083CF831F0D15CB007AEFBC /* AddActivityDelegate.swift in Sources */,
 				A083CF8D1F0FCA58007AEFBC /* Location.swift in Sources */,
 				A083CF431F0BD103007AEFBC /* AppDelegate.swift in Sources */,
-				A083CF571F0BD65F007AEFBC /* Activity.swift in Sources */,
+				A083CF571F0BD65F007AEFBC /* ActivityDto.swift in Sources */,
 				A083CF8B1F0E817C007AEFBC /* ActivityTableViewCell.swift in Sources */,
+				A083CF8F1F13C078007AEFBC /* Activity.swift in Sources */,
 				A083CF591F0BE075007AEFBC /* AddActivityViewController.swift in Sources */,
+				A083CFBB1F153E63007AEFBC /* LoginViewController.swift in Sources */,
 				A083CF551F0BD580007AEFBC /* ActivityTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

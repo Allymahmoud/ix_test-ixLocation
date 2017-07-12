@@ -15,7 +15,7 @@ class MapViewController: UIViewController, AddActivityDelegate, CLLocationManage
 
     @IBOutlet weak var map: MKMapView!
     var delegate: AddActivityDelegate?
-    var activites: [Activity] = []
+    var activites: [ActivityDto] = []
     
     let locationManager = CLLocationManager()
     
@@ -101,7 +101,7 @@ class MapViewController: UIViewController, AddActivityDelegate, CLLocationManage
     
     
     
-    func didAddActivity(activity: Activity){
+    func didAddActivity(activity: ActivityDto){
 
 //        self.activities.append(activity)
 //        self.tableView?.reloadData()
@@ -134,13 +134,13 @@ class MapViewController: UIViewController, AddActivityDelegate, CLLocationManage
                 self.activites = []
                 
                 
-                
+                print(activityDictionary)
                 for (key, value) in activityDictionary {
                     print ("Key: \(key)")
-                    //print ("Value: \(value)")
+                    print ("Value: \(value)")
                     
                     if let singleActivityDictionary = value as? [String: AnyObject]{
-                        let activity = Activity(dictionary: singleActivityDictionary)
+                        let activity = ActivityDto(dictionary: singleActivityDictionary)
                         
                         //add all activities in our global list
                         self.activites.append(activity)
@@ -174,7 +174,7 @@ class MapViewController: UIViewController, AddActivityDelegate, CLLocationManage
     }
     
     //function to add an activity to a map
-    func addActivityMapPoint(activity: Activity){
+    func addActivityMapPoint(activity: ActivityDto){
         
         if ((activity.latitude) != nil) {
             let coordinate = CLLocationCoordinate2D(latitude: activity.latitude!, longitude: activity.longitude!)

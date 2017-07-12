@@ -8,10 +8,11 @@
 
 import UIKit
 import Alamofire
+import RealmSwift
 
 class ActivityTableViewController: UITableViewController, AddActivityDelegate {
     
-    var activities: [Activity] = []
+    var activities: [ActivityDto] = []
     
     func defaultname() -> String? {
         return "Ally"
@@ -31,29 +32,43 @@ class ActivityTableViewController: UITableViewController, AddActivityDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        Alamofire.request("https://ixlocation-8d268.firebaseio.com/activities.json").responseJSON(completionHandler: {
-            response in
-            //print(response.result.value)
-            
-            if let activityDictionary = response.result.value as? [String: AnyObject]{
-                
-                self.activities = []
-                
-                for (key, value) in activityDictionary {
-                    print ("Key: \(key)")
-                    print ("Value: \(value)")
-                    
-                    if let singleActivityDictionary = value as? [String: AnyObject]{
-                        let activity = Activity(dictionary: singleActivityDictionary)
-                        self.activities.append(activity)
-                        self.tableView.reloadData()
-                    }
-                    
-                    
-                }
-            }
-            
-        })
+//        Alamofire.request("https://ixlocation-8d268.firebaseio.com/activities.json").responseJSON(completionHandler: {
+//            response in
+//            //print(response.result.value)
+//            
+//            if let activityDictionary = response.result.value as? [String: AnyObject]{
+//                
+//                self.activities = []
+//                
+//                for (key, value) in activityDictionary {
+//                    print ("Key: \(key)")
+//                    print ("Value: \(value)")
+//                    
+//                    if let singleActivityDictionary = value as? [String: AnyObject]{
+//                        let activity = ActivityDto(dictionary: singleActivityDictionary)
+//                        self.activities.append(activity)
+//                        self.tableView.reloadData()
+//                    }
+//                    
+//                    
+//                }
+//            }
+        // Get the default Realm
+        let realm = try! Realm()
+        
+        let realmActivities = realm.objects(Activity.self) // retrieves all Dogs from the default Realm
+        
+        for realmActivity in realmActivities {
+            activities.append(ActivityDto(name: realmActivity.name, description: realmActivity.descr))
+        }
+        
+        tableView.reloadData()
+        
+        
+        
+       
+        
+//        })
         //self.tableView.reloadData()
 
     }
@@ -105,13 +120,13 @@ class ActivityTableViewController: UITableViewController, AddActivityDelegate {
     
     }
     
-    func addActivity (activity: Activity){
+    func addActivity (activity: ActivityDto){
         self.activities.append(activity)
         self.tableView?.reloadData()
         
     }
     
-    func didAddActivity(activity: Activity){
+    func didAddActivity(activity: ActivityDto){
         self.activities.append(activity)
         self.tableView?.reloadData()
         

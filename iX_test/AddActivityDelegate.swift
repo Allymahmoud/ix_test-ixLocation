@@ -10,7 +10,7 @@ import Foundation
 
 protocol AddActivityDelegate {
     
-    func didAddActivity(activity:Activity)
+    func didAddActivity(activity:ActivityDto)
     func defaultname() -> String?
     
     

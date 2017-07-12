@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="JlM-7k-MUT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="29m-bW-6Ki">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -223,6 +223,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q96-15-9Od" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3332" y="952.17391304347836"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="cEc-wx-q14">
+            <objects>
+                <viewController id="29m-bW-6Ki" userLabel="Login View Controller" customClass="LoginViewController" customModule="iX_test" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hg4-ub-xxe"/>
+                        <viewControllerLayoutGuide type="bottom" id="cZ5-Gl-CcT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bMV-19-KKa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WVQ-dX-uyK" userLabel="bottom view">
+                                <rect key="frame" x="67" y="476" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WVQ-dX-uyK" firstAttribute="top" secondItem="hg4-ub-xxe" secondAttribute="bottom" constant="456" id="Lph-sL-fhi"/>
+                            <constraint firstItem="WVQ-dX-uyK" firstAttribute="leading" secondItem="bMV-19-KKa" secondAttribute="leadingMargin" constant="51" id="O9s-3W-YAG"/>
+                            <constraint firstItem="cZ5-Gl-CcT" firstAttribute="top" secondItem="WVQ-dX-uyK" secondAttribute="bottom" constant="63" id="hha-jg-vi2"/>
+                            <constraint firstItem="WVQ-dX-uyK" firstAttribute="centerX" secondItem="bMV-19-KKa" secondAttribute="centerX" id="uU8-zY-qfb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bottomview" destination="WVQ-dX-uyK" id="Hky-dv-gCe"/>
+                        <segue destination="JlM-7k-MUT" kind="show" identifier="navToMain" id="8M0-y5-DEJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Mw-6J-g4N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-340" y="139"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="XX4-dZ-tKo">

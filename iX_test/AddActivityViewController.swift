@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import Alamofire
+import RealmSwift
 
 class AddActivityViewController: UIViewController, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
@@ -100,27 +101,41 @@ class AddActivityViewController: UIViewController, CLLocationManagerDelegate, UI
     
     @IBAction func save(_ sender: Any) {
         
-        var activity: Activity?
+        
+        let activity = Activity()
+        activity.name = Activity_Text_Box.text!
+        activity.descr = Description_Text_Box.text!
+        
+        // Get the default Realm
+        let realm = try! Realm()
+        // You only need to do this once (per thread)
+        
+        // Add to the Realm inside a transaction
+        try! realm.write {
+            realm.add(activity)
+        }
+        
+        print(realm.configuration.fileURL!)
+        
+        var activityDto: ActivityDto?
         
         
         if let location = self.latestLocation {
-            activity = Activity(name: Activity_Text_Box.text!, description: Description_Text_Box.text!,latitude: location.coordinate.latitude , longitude: location.coordinate.longitude)
+            activityDto = ActivityDto(name: Activity_Text_Box.text!, description: Description_Text_Box.text!,latitude: location.coordinate.latitude , longitude: location.coordinate.longitude)
             
         }
         else{
-          activity = Activity(name: Activity_Text_Box.text!, description: Description_Text_Box.text!)
+          activityDto = ActivityDto(name: Activity_Text_Box.text!, description: Description_Text_Box.text!)
         }
         
         
         
         
-//        activityTableViewController?.activities.append(activity)
-//        activityTableViewController?.tableView?.reloadData()
+
         
-        //Alamofire.request("https://ixlocation-8d268.firebaseio.com/activities.json", method: .post, parameters: activity?.toJSON(), enc
         
-    
-        
+        /*
+        // post/store the activity to firbase database
         Alamofire.request("https://ixlocation-8d268.firebaseio.com/activities.json", method: .post, parameters: activity?.toJSON(), encoding: JSONEncoding.default).responseJSON(completionHandler: {
             response in
             //print(response.result.value)
@@ -137,27 +152,15 @@ class AddActivityViewController: UIViewController, CLLocationManagerDelegate, UI
 
             
         })
+         */
         
-/*        Alamofire.request("https://ixlocation.firebaseio.com/activities.json", method: .post, parameters: activity?.toJSON(), encoding: JSONEncoding.default).responseJSON(completionHandler: {
-            response in
-            
-            switch response.result{
-            case .success:
-                self.delegate?.didAddActivity(activity: activity!)
-                self.dismiss(animated: true, completion: nil)
-                break
-            case .failure:
-                //TODO: Display an error dialog
-                break
-            }
-        })
-*/
-        
+
         
         /*
         delegate?.didAddActivity(activity: activity!)
-        self.dismiss(animated: true, completion: nil)
+        
         */
+        self.dismiss(animated: true, completion: nil)
         
     }
     
